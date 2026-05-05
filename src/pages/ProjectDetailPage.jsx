@@ -1,6 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { portfolioData } from '../data/portfolioData.js'
-import { getFolderMedia } from '../data/contentConfig.js'
+import { getFolderMediaForProjectDetail, getYoutubeVideoIdForProject } from '../data/contentConfig.js'
 
 const VALID_IDS = new Set(['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'])
 
@@ -13,8 +13,18 @@ export default function ProjectDetailPage() {
   const project = portfolioData.projects.find((p) => p.id === projectId)
   if (!project) return <Navigate to="/" replace />
 
-  const media = getFolderMedia(projectId)
+  const youtubeId = getYoutubeVideoIdForProject(projectId)
+  const mediaAll = getFolderMediaForProjectDetail(projectId)
+  /** 无 YouTube 时：主视频为同目录 video.mp4（若存在），避免与其它片段重复列出 */
+  const primaryLocalVideo =
+    !youtubeId && mediaAll.find((m) => m.kind === 'video' && /^video\.mp4$/i.test(m.fileName))
+  const galleryMedia = primaryLocalVideo ? mediaAll.filter((m) => m !== primaryLocalVideo) : mediaAll
   const tagline = project.tags?.length ? project.tags.join(' · ') : project.titleEn || ''
+
+  /** playlist= 与视频 id 相同才能让 loop=1 在单曲 embed 下生效 */
+  const youtubeEmbedSrc = youtubeId
+    ? `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3`
+    : null
 
   const openingParagraphs = project.openingParagraphs ?? []
   const closingParagraphs = project.closingParagraphs ?? []
@@ -68,7 +78,39 @@ export default function ProjectDetailPage() {
               </div>
             ) : null}
 
-            {media.map((item) =>
+            {youtubeEmbedSrc ? (
+              <figure className="m-0 w-full overflow-hidden bg-black shadow-sm ring-1 ring-sage/20">
+                <div className="relative aspect-video w-full">
+                  <iframe
+                    title={`${project.title} — video`}
+                    className="absolute inset-0 h-full w-full border-0"
+                    src={youtubeEmbedSrc}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
+                <figcaption className="sr-only">YouTube video</figcaption>
+              </figure>
+            ) : null}
+
+            {!youtubeEmbedSrc && primaryLocalVideo ? (
+              <figure className="m-0 overflow-hidden shadow-sm ring-1 ring-sage/20">
+                <div className="relative aspect-video w-full bg-black">
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    src={primaryLocalVideo.url}
+                  />
+                </div>
+                <figcaption className="sr-only">{primaryLocalVideo.fileName}</figcaption>
+              </figure>
+            ) : null}
+
+            {galleryMedia.map((item) =>
               item.kind === 'video' ? (
                 <figure key={item.url} className="m-0 overflow-hidden rounded-none shadow-sm">
                   <video
@@ -106,7 +148,11 @@ export default function ProjectDetailPage() {
               </div>
             ) : null}
 
-            {media.length === 0 && openingParagraphs.length === 0 && closingParagraphs.length === 0 ? (
+            {galleryMedia.length === 0 &&
+            !youtubeEmbedSrc &&
+            !primaryLocalVideo &&
+            openingParagraphs.length === 0 &&
+            closingParagraphs.length === 0 ? (
               <p className="text-center font-sans text-lg text-stone-500">
                 将图片或视频放入 <code className="text-stone-400">src/assets/{projectId}/</code> 后刷新即可显示。
               </p>

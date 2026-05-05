@@ -1,10 +1,11 @@
 /**
- * 星球资源：
- * 1) personal/assets（仓库上一级）：推荐把 about/（About 星球）、p1/…p8/ 与 cover 放在这里
- * 2) src/assets：占位图、本地兜底
+ * 星球资源：统一放在 **src/assets**（about、p1…p8 各目录 + `cover.*`、媒体与 `video.mp4`）。
+ * 通过 `import.meta.glob` 在构建期收集路径，供 Vite 打包与 InfiniteMenu / 详情页使用。
  *
- * 目录约定：about/cover.*、p1/cover.* … p8/cover.*
- * 球面贴图顺序见 orbFaceOrder.js（ORB_FACE_ORDER），勿依赖 portfolioData.projects 数组顺序。
+ * 球面顺序见 orbFaceOrder.js（ORB_FACE_ORDER），勿依赖 portfolioData.projects 数组顺序。
+ *
+ * **youtubeId**（在 portfolioData.projects[] 与 aboutOrbCard 上预留）：
+ * 有合法 id 时详情页优先嵌入 YouTube；否则使用文件夹内 **video.mp4** 作为主视频（若存在），其余媒体照旧。
  */
 import fallbackCover from '../assets/projects/placeholder-fallback.svg'
 import { ORB_FACE_ORDER } from './orbFaceOrder.js'
@@ -13,43 +14,20 @@ import { portfolioData } from './portfolioData.js'
 /** @deprecated 使用 ORB_FACE_ORDER；保留别名以免外部引用报错 */
 export const ORB_FOLDER_ORDER = ORB_FACE_ORDER
 
-/** 项目内 src/assets（占位、fallback 等） — glob 第二参须为字面量，不能是变量 */
-const COVER_GLOB_SRC = import.meta.glob('../assets/**/cover.{jpg,jpeg,png,JPG,JPEG,PNG}', {
-  eager: true,
-  import: 'default',
-  query: '?url',
-})
-/** 仓库上一级 personal/assets */
-const COVER_GLOB_WORKSPACE = import.meta.glob('../../../assets/**/cover.{jpg,jpeg,png,JPG,JPEG,PNG}', {
+/** glob 第二参须为字面量 */
+const COVER_GLOB = import.meta.glob('../assets/**/cover.{jpg,jpeg,png,JPG,JPEG,PNG}', {
   eager: true,
   import: 'default',
   query: '?url',
 })
 
-const MEDIA_GLOB_SRC = import.meta.glob(
+const MEDIA_GLOB = import.meta.glob(
   '../assets/**/*.{jpg,jpeg,png,JPG,JPEG,webp,WEBP,gif,GIF,mp4,MP4,webm,WEBM,mov,MOV}',
   { eager: true, import: 'default', query: '?url' },
 )
-const MEDIA_GLOB_WORKSPACE = import.meta.glob(
-  '../../../assets/**/*.{jpg,jpeg,png,JPG,JPEG,webp,WEBP,gif,GIF,mp4,MP4,webm,WEBM,mov,MOV}',
-  { eager: true, import: 'default', query: '?url' },
-)
 
-function mergeGlobs(primaryWorkspace, secondarySrc) {
-  const out = { ...secondarySrc, ...primaryWorkspace }
-  return out
-}
-
-/** workspace 后展开，同名 key 以 personal/assets 为准 */
-const COVER_GLOB = mergeGlobs(COVER_GLOB_WORKSPACE, COVER_GLOB_SRC)
-const MEDIA_GLOB = mergeGlobs(MEDIA_GLOB_WORKSPACE, MEDIA_GLOB_SRC)
-
-/** 排序：优先 ../../../assets（personal），再 src/assets */
-function prefersWorkspacePath(key) {
-  const n = key.replace(/\\/g, '/')
-  if (n.includes('../../../assets')) return 2
-  if (n.includes('../assets')) return 1
-  return 0
+function pathSortKey(a, b) {
+  return String(a).localeCompare(String(b), undefined, { numeric: true })
 }
 
 /**
@@ -63,13 +41,13 @@ export function getCoverUrl(folderKey) {
     return m && m[1] === folderKey
   })
   if (hits.length === 0) return typeof fallbackCover === 'string' ? fallbackCover : String(fallbackCover)
-  hits.sort((a, b) => prefersWorkspacePath(b[0]) - prefersWorkspacePath(a[0]) || a[0].localeCompare(b[0]))
+  hits.sort((a, b) => pathSortKey(a[0], b[0]))
   const url = hits[0][1]
   return typeof url === 'string' ? url : String(url)
 }
 
 /**
- * 某星球文件夹内除 cover 以外的媒体（详情页画廊 / About 浮层展示 assets/about 等）。
+ * 某文件夹内除 cover 以外的媒体（详情页 / About 浮层）。
  * @param {string} folderKey about | p1 | … | p8
  */
 export function getFolderMedia(folderKey) {
@@ -87,12 +65,62 @@ export function getFolderMedia(folderKey) {
       const kind = /\.(mp4|webm|mov)$/i.test(fileName) ? 'video' : 'image'
       return { url: u, fileName, kind, _path: path }
     })
-    .sort((a, b) => prefersWorkspacePath(b._path) - prefersWorkspacePath(a._path) || a.fileName.localeCompare(b.fileName, undefined, { numeric: true }))
+    .sort((a, b) => pathSortKey(a._path, b._path) || a.fileName.localeCompare(b.fileName, undefined, { numeric: true }))
     .map(({ url, fileName, kind }) => ({ url, fileName, kind }))
 }
 
+const YT_MAIN_VIDEO_RE = /^video\.(mp4|webm|mov)$/i
+
 /**
- * InfiniteMenu / WorksGrid 的 items：索引 0 = about 文件夹（About 星球），1–8 = p1…p8。
+ * 从字符串解析 YouTube 视频 id（11 位），支持裸 id、youtu.be、watch?v=
+ * @param {string | undefined} raw
+ * @returns {string | undefined}
+ */
+export function normalizeYoutubeId(raw) {
+  if (raw == null || typeof raw !== 'string') return undefined
+  const s = raw.trim()
+  if (!s) return undefined
+  let m = s.match(/(?:youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/)
+  if (m) return m[1]
+  m = s.match(/[?&]v=([a-zA-Z0-9_-]{11})/)
+  if (m) return m[1]
+  if (/^[a-zA-Z0-9_-]{11}$/.test(s)) return s
+  return undefined
+}
+
+/**
+ * About 星球浮层若将来需 YouTube，可读此字段（当前 UI 未使用）。
+ * @returns {string | undefined}
+ */
+export function getYoutubeVideoIdForAboutOrb() {
+  return normalizeYoutubeId(portfolioData.aboutOrbCard?.youtubeId)
+}
+
+/**
+ * @param {string} folderKey p1 | … | p8
+ * @returns {string | undefined} 用于 /embed/<id> 的 id
+ */
+export function getYoutubeVideoIdForProject(folderKey) {
+  const p = portfolioData.projects.find((x) => x.id === folderKey)
+  return normalizeYoutubeId(p?.youtubeId)
+}
+
+/**
+ * 详情页：含 YouTube 主视频时去掉文件夹内 video.*，避免与嵌入重复。
+ * @param {string} folderKey about | p1 | … | p8
+ */
+export function getFolderMediaForProjectDetail(folderKey) {
+  const items = getFolderMedia(folderKey)
+  const yt = getYoutubeVideoIdForProject(folderKey)
+  if (!yt) return items
+  return items.filter((item) => {
+    if (item.kind !== 'video') return true
+    return !YT_MAIN_VIDEO_RE.test(item.fileName)
+  })
+}
+
+/**
+ * InfiniteMenu / WorksGrid：索引 0 = about，1–8 = p1…p8。
  */
 export function buildInfiniteMenuItems() {
   const projectsById = new Map(portfolioData.projects.map((p) => [p.id, p]))

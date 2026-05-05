@@ -1,5 +1,5 @@
 /**
- * Portfolio 文案与路由 — 封面由 contentConfig.getCoverUrl(id) 解析。
+ * Portfolio 文案与路由 — 封面由 contentConfig.getCoverUrl(id) 解析；可选 `youtubeId` 见 contentConfig 顶部说明。
  * 球面第几格用哪个 id 由 orbFaceOrder.js 的 ORB_FACE_ORDER 决定，不必与下方 projects 数组顺序一致。
  */
 export const portfolioData = {
@@ -13,6 +13,8 @@ export const portfolioData = {
     title: 'About',
     description: '自述與聯絡',
     link: '/about',
+    /** 预留：若以后 About 浮层要嵌 YouTube，填 id 或完整链接；空字符串表示不用 */
+    youtubeId: '',
   },
   aboutDetail: {
     paragraphs: [
@@ -39,6 +41,8 @@ export const portfolioData = {
   projects: [
     {
       id: 'p1',
+      /** 详情页主视频：有则嵌 YouTube，并隐藏文件夹内 video.mp4（可填完整 youtu.be 链接） */
+      youtubeId: 'https://youtu.be/rKjEjDxMEYU',
       title: 'The Silent Seconds Murder Case Z-CS-SI-2024-001-Y',
       titleEn: '',
       tags: ['Performance Installation'],
@@ -55,6 +59,7 @@ export const portfolioData = {
     },
     {
       id: 'p2',
+      youtubeId: '',
       title: 'Project Two',
       titleEn: '',
       tags: ['Branding', 'Visual'],
@@ -62,6 +67,7 @@ export const portfolioData = {
     },
     {
       id: 'p3',
+      youtubeId: '',
       title: 'Project Three',
       titleEn: '',
       tags: ['Interaction', 'Web'],
@@ -69,6 +75,7 @@ export const portfolioData = {
     },
     {
       id: 'p4',
+      youtubeId: '',
       title: 'Project Four',
       titleEn: '',
       tags: ['3D', 'Rendering'],
@@ -76,6 +83,7 @@ export const portfolioData = {
     },
     {
       id: 'p5',
+      youtubeId: '',
       title: 'Project Five',
       titleEn: '',
       tags: ['Video', 'Editing'],
@@ -83,6 +91,7 @@ export const portfolioData = {
     },
     {
       id: 'p6',
+      youtubeId: '',
       title: 'Project Six',
       titleEn: '',
       tags: ['Illustration', 'Print'],
@@ -90,6 +99,7 @@ export const portfolioData = {
     },
     {
       id: 'p7',
+      youtubeId: '',
       title: 'Project Seven',
       titleEn: '',
       tags: ['Installation', 'Spatial'],
@@ -97,6 +107,7 @@ export const portfolioData = {
     },
     {
       id: 'p8',
+      youtubeId: '',
       title: 'Project Eight',
       titleEn: '',
       tags: ['Experimental', 'Mixed Media'],

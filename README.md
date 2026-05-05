@@ -1,24 +1,37 @@
-# React + Vite
+# pixel-welcome · 多媒体作品集站点
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+手绘感交互首页（WebGL 球体菜单）、项目详情与 About 浮层。技术栈：**React 19**、**Vite 8**、**Tailwind CSS 4**、**GSAP**、**WebGL2**（InfiniteMenu）。
 
-Currently, two official plugins are available:
+## 开发
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+```bash
+npm run build   # 生产构建
+npm run preview # 本地预览构建结果
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 资源与目录（Vite / 部署）
 
-## Expanding the ESLint configuration
+- **所有作品资源入库在 `src/assets/`**：`about/`（About 星球）、`p1/` … `p8/`，各目录放 `cover.jpg|png`、图集、以及可选的 **`video.mp4`**。
+- 封面与媒体路径由 **`src/data/contentConfig.js`** 通过 **`import.meta.glob('../assets/...')`** 在构建期解析，InfiniteMenu 与详情页共用同一套数据，无需再使用 `public/assets` 符号链接。
+- **请勿**在 `.gitignore` 中排除 `src/assets/`（当前未排除），以便 GitHub 与 **Vercel** 能带上封面与本地视频。
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 视频：本地与 YouTube 混合
 
-# 我的多媒体艺术作品集
+- 在 **`src/data/portfolioData.js`** 里为每个项目（及 `aboutOrbCard`）预留 **`youtubeId`**（可为空字符串 `''`；支持 11 位 id 或 `youtu.be` / `watch?v=` 链接）。
+- **详情页逻辑**：若配置了有效的 `youtubeId`，优先渲染 **YouTube iframe**（`youtube-nocookie`）；否则若存在 **`video.mp4`**，则播放该本地文件；再其余文件按画廊展示。
+- **现状说明**：支持**本地大文件与 YouTube 链接混用**；大体积视频后续可逐步改为只填 `youtubeId`，减少仓库体积。
 
-核心特效：手绘像素拖尾、撕纸效果封面。
+## 部署（Vercel）
 
-技术栈：React + Vite + GSAP + Three.js。
+根目录选择本仓库，构建命令 `npm run build`，输出目录 `dist`。路由为 SPA 时请保留项目内已配置的 `vercel.json` / `public/_redirects` 等规则（若已存在）。
 
-操作：运行 npm run dev 开启交互。
+**注意：** 构建产物必须能只靠本仓库解析——请勿在 CSS/JS 里 `@import` 或引用**仓库外的路径**（例如上一级的 `../css/`）。画册补充样式已放在 **`src/styles/gallery-shared.css`**。
+
+---
+
+基于 Vite React 模板；若需 TypeScript 与更严的 ESLint，可参考 [Vite TS 模板](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts)。

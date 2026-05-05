@@ -1,4 +1,4 @@
-/* 顺序：Tailwind → 全局 token → 父目录 styles.css；SPA 覆盖在 main.jsx 中的 spa-overrides.css */
+/* 顺序：Tailwind → 全局 token → 画册补充样式（仓库内 src/styles）；SPA 覆盖在 main.jsx 中的 spa-overrides.css */
 @import 'tailwindcss';
 
 @theme {
@@ -22,8 +22,7 @@ body {
   background-color: transparent !important;
 }
 
-/* 父目录画册补充样式（Hero 网格、标签、项目一 blob 等） */
-@import '../../css/styles.css';
+@import './styles/gallery-shared.css';
 
 /* 路由切换：进入页轻微上浮 + 淡入 */
 @keyframes route-page-in {

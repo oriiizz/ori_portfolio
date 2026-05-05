@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import SiteHeader from '../components/SiteHeader.jsx'
 import WorksGrid from '../components/WorksGrid.jsx'
+import WorkQuickNav from '../components/WorkQuickNav.jsx'
 import { getFolderMedia } from '../data/contentConfig.js'
 import { portfolioData } from '../data/portfolioData.js'
 
@@ -122,15 +123,24 @@ export default function HomePage() {
 
       <main className="absolute inset-x-0 bottom-0 top-14 overflow-hidden md:top-16">
         <div className="relative flex h-full min-h-0 w-full flex-col px-4 pb-4 pt-1 md:px-8 md:pb-6">
-          <div
-            ref={sphereShellRef}
-            className="relative mx-auto flex min-h-0 w-full max-w-[min(92vw,960px)] flex-1 items-center justify-center"
-          >
-            <WorksGrid
-              key={galleryKey}
-              immersive
-              menuScale={0.76}
-              onAboutCardOpen={openAboutFromOrb}
+          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col gap-3 sm:gap-4 lg:flex-row lg:items-stretch lg:gap-6">
+            <div
+              ref={sphereShellRef}
+              className="relative order-2 flex min-h-0 min-w-0 flex-1 items-center justify-center lg:order-1"
+            >
+              <div className="relative mx-auto flex h-full min-h-0 w-full max-w-[min(92vw,960px)] flex-1 items-center justify-center">
+                <WorksGrid
+                  key={galleryKey}
+                  immersive
+                  menuScale={0.76}
+                  onAboutCardOpen={openAboutFromOrb}
+                />
+              </div>
+            </div>
+            <WorkQuickNav
+              onAboutClick={openAboutFromOrb}
+              dimmed={phase !== 'gallery'}
+              className="order-1 w-full shrink-0 lg:order-2 lg:w-[min(100%,15.5rem)] xl:w-60"
             />
           </div>
         </div>
