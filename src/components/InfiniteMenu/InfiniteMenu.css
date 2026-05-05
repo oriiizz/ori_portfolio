@@ -1,0 +1,93 @@
+.infinite-menu-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.infinite-menu-cover-wrap {
+  cursor: pointer;
+}
+
+/* 静止 / 吸附：手型；球体在转或拖拽中：抓取 */
+#infinite-grid-menu-canvas {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  outline: none;
+  display: block;
+  background: transparent;
+}
+
+.infinite-menu-cover-wrap.is-sphere-moving #infinite-grid-menu-canvas {
+  cursor: grab;
+}
+
+#infinite-grid-menu-canvas:active {
+  cursor: grabbing;
+}
+
+.face-title {
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(12%, -50%);
+  font-family: var(--font-display), 'Nanum Pen Script', cursive;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--color-ink, #f4f0e8);
+  text-shadow: 0 1px 18px rgba(10, 9, 8, 0.65);
+  max-width: min(42ch, 72vw);
+}
+
+.face-title.active {
+  opacity: 1;
+  transform: translate(12%, -50%);
+  pointer-events: auto;
+  transition: opacity 0.45s ease;
+}
+
+.face-title.inactive {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.face-description {
+  user-select: none;
+  position: absolute;
+  right: 0;
+  max-width: min(22ch, 40vw);
+  top: 50%;
+  font-family: var(--font-sans), 'Nanum Pen Script', cursive;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.45;
+  letter-spacing: 0.03em;
+  color: var(--color-ink-muted, #c9c2b4);
+  text-shadow: 0 1px 14px rgba(10, 9, 8, 0.55);
+}
+
+.face-description.active {
+  opacity: 1;
+  transform: translate(-92%, -50%);
+  pointer-events: auto;
+  transition: opacity 0.45s ease;
+}
+
+.face-description.inactive {
+  pointer-events: none;
+  transform: translate(-70%, -50%);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+@media (max-width: 900px) {
+  .face-title,
+  .face-description {
+    display: none;
+  }
+}

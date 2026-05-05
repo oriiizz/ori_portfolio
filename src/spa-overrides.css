@@ -1,0 +1,11 @@
+/* 在 styles.css 之后加载：SPA 层级（Crosshair z-9998；贴纸/顶栏更高） */
+
+#root {
+  position: relative;
+  isolation: isolate;
+  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: transparent;
+}
+
