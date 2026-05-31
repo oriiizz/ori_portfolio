@@ -1,19 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio — ori</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
-      rel="stylesheet"
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <main class="home" aria-labelledby="home-title">
+      <section class="home__profile" aria-label="Profile">
+        <img
+          class="home__portrait"
+          src="assets/site/home-portrait.png"
+          alt="Portrait of Xunan Zheng"
+        />
+        <h1 class="home__title" id="home-title">Xunan ZHENG</h1>
+        <div class="home__contact" aria-label="Contact information">
+          <p>Email: 25049827g@connect.polyu.hk</p>
+          <p>Phone: +86 15563949444</p>
+        </div>
+      </section>
+
+      <section class="home__details" aria-label="Education and skills">
+        <section class="home-section home-section--education" aria-labelledby="education-title">
+          <h2 class="home-section__title" id="education-title">Education</h2>
+          <div class="education-list">
+            <p>The Hong Kong Polytechnic University, HongKong, China</p>
+            <p>Major: Master of Science Innovative Multimedia and Entertainment</p>
+            <p>Beijing Forestry University, Beijing, China</p>
+            <p>Major: Bachelor of Fine Arts Digital Media Art</p>
+          </div>
+        </section>
+
+        <section class="home-section home-section--skills" aria-labelledby="skills-title">
+          <h2 class="home-section__title" id="skills-title">Skills</h2>
+          <ul class="skills-grid" aria-label="Software and tool skills">
+            <li><img src="assets/skills/skill-figma.png" alt="Figma" /></li>
+            <li><img src="assets/skills/skill-photoshop.png" alt="Adobe Photoshop" /></li>
+            <li><img src="assets/skills/skill-illustrator.png" alt="Adobe Illustrator" /></li>
+            <li><img src="assets/skills/skill-after-effects.png" alt="Adobe After Effects" /></li>
+            <li><img src="assets/skills/skill-premiere.png" alt="Adobe Premiere Pro" /></li>
+            <li><img src="assets/skills/skill-unity.png" alt="Unity" /></li>
+            <li><img src="assets/skills/skill-blender.png" alt="Blender" /></li>
+            <li><img src="assets/skills/skill-zbrush.png" alt="ZBrush" /></li>
+            <li><img src="assets/skills/skill-touchdesigner.png" alt="TouchDesigner" /></li>
+            <li><img src="assets/skills/skill-c4d.png" alt="Cinema 4D" /></li>
+            <li><img src="assets/skills/skill-audition.png" alt="Adobe Audition" /></li>
+            <li><img src="assets/skills/skill-arduino.png" alt="Arduino" /></li>
+            <li><img src="assets/skills/skill-madmapper.png" alt="MadMapper" /></li>
+            <li><img src="assets/skills/skill-unreal.png" alt="Unreal Engine" /></li>
+          </ul>
+        </section>
+      </section>
+
+      <a class="home__next" href="event-list.html">Next</a>
+      <img class="home__dancers" src="assets/site/home-dancers.png" alt="" aria-hidden="true" />
+    </main>
   </body>
 </html>
