@@ -7,7 +7,15 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="home" aria-labelledby="home-title">
+    <main
+      class="home"
+      aria-labelledby="home-title"
+      aria-label="Open event list"
+      role="link"
+      tabindex="0"
+      onclick="window.location.href='event-list.html'"
+      onkeydown="if (event.key === 'Enter' || event.key === ' ') window.location.href='event-list.html'"
+    >
       <section class="home__profile" aria-label="Profile">
         <img
           class="home__portrait"
@@ -52,8 +60,6 @@
           </ul>
         </section>
       </section>
-
-      <a class="home__next" href="event-list.html">Next</a>
       <img class="home__dancers" src="assets/site/home-dancers.png" alt="" aria-hidden="true" />
     </main>
   </body>
