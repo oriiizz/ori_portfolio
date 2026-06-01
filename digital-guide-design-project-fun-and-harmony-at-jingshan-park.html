@@ -3,6 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function () {
+        if (location.hostname !== "oriiizz.github.io") {
+          return;
+        }
+
+        var base = document.createElement("base");
+        base.href = "/ori_portfolio.github.io/";
+        document.head.insertBefore(base, document.head.firstChild);
+      })();
+    </script>
     <title>Digital Guide Design Project: Fun and Harmony at Jingshan Park | Portfolio</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>

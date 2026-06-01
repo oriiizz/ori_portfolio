@@ -9,7 +9,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("./assets/home/inter-medium.woff2") format("woff2");
+  src: url("assets/home/inter-medium.woff2") format("woff2");
 }
 
 @font-face {
@@ -17,7 +17,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("./assets/home/inter-bold.woff2") format("woff2");
+  src: url("assets/home/inter-bold.woff2") format("woff2");
 }
 
 html,
@@ -87,6 +87,7 @@ body {
   flex: 1 1 auto;
   margin: 32px 0 0;
   max-width: 299px;
+  min-height: 240px;
   width: 100%;
 }
 
@@ -112,6 +113,8 @@ body {
 @media (min-width: 768px) {
   .home__inner {
     display: block;
+    height: 100vh;
+    min-height: 100vh;
     padding: 0;
   }
 
