@@ -16,51 +16,24 @@
       onclick="window.location.href='event-list.html'"
       onkeydown="if (event.key === 'Enter' || event.key === ' ') window.location.href='event-list.html'"
     >
-      <section class="home__profile" aria-label="Profile">
-        <img
-          class="home__portrait"
-          src="assets/site/home-portrait.png"
-          alt="Portrait of Xunan Zheng"
-        />
-        <h1 class="home__title" id="home-title">Xunan ZHENG</h1>
-        <div class="home__contact" aria-label="Contact information">
-          <p>Email: 25049827g@connect.polyu.hk</p>
-          <p>Phone: +86 15563949444</p>
-        </div>
-      </section>
+      <div class="home__inner">
+        <header class="home__intro">
+          <h1 class="home__title" id="home-title">
+            <span class="home__title-line">ZHENG </span>
+            <span class="home__title-line">Xunan</span>
+          </h1>
+          <p class="home__tagline">
+            Engaged in the research and practice of human-computer interaction,
+            exploring the integration of installations, VR, visual art and web design.
+          </p>
+        </header>
 
-      <section class="home__details" aria-label="Education and skills">
-        <section class="home-section home-section--education" aria-labelledby="education-title">
-          <h2 class="home-section__title" id="education-title">Education</h2>
-          <div class="education-list">
-            <p>The Hong Kong Polytechnic University, HongKong, China</p>
-            <p>Major: Master of Science Innovative Multimedia and Entertainment</p>
-            <p>Beijing Forestry University, Beijing, China</p>
-            <p>Major: Bachelor of Fine Arts Digital Media Art</p>
-          </div>
-        </section>
+        <figure class="home__hero" aria-hidden="true">
+          <img src="assets/home/hero.png" alt="" />
+        </figure>
 
-        <section class="home-section home-section--skills" aria-labelledby="skills-title">
-          <h2 class="home-section__title" id="skills-title">Skills</h2>
-          <ul class="skills-grid" aria-label="Software and tool skills">
-            <li><img src="assets/skills/skill-figma.png" alt="Figma" /></li>
-            <li><img src="assets/skills/skill-photoshop.png" alt="Adobe Photoshop" /></li>
-            <li><img src="assets/skills/skill-illustrator.png" alt="Adobe Illustrator" /></li>
-            <li><img src="assets/skills/skill-after-effects.png" alt="Adobe After Effects" /></li>
-            <li><img src="assets/skills/skill-premiere.png" alt="Adobe Premiere Pro" /></li>
-            <li><img src="assets/skills/skill-unity.png" alt="Unity" /></li>
-            <li><img src="assets/skills/skill-blender.png" alt="Blender" /></li>
-            <li><img src="assets/skills/skill-zbrush.png" alt="ZBrush" /></li>
-            <li><img src="assets/skills/skill-touchdesigner.png" alt="TouchDesigner" /></li>
-            <li><img src="assets/skills/skill-c4d.png" alt="Cinema 4D" /></li>
-            <li><img src="assets/skills/skill-audition.png" alt="Adobe Audition" /></li>
-            <li><img src="assets/skills/skill-arduino.png" alt="Arduino" /></li>
-            <li><img src="assets/skills/skill-madmapper.png" alt="MadMapper" /></li>
-            <li><img src="assets/skills/skill-unreal.png" alt="Unreal Engine" /></li>
-          </ul>
-        </section>
-      </section>
-      <img class="home__dancers" src="assets/site/home-dancers.png" alt="" aria-hidden="true" />
+        <p class="home__cta">click me</p>
+      </div>
     </main>
   </body>
 </html>
