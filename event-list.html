@@ -16,12 +16,24 @@
     </script>
     <title>Events | Portfolio</title>
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./scripts/page-transition-boot.js"></script>
   </head>
   <body>
     <main class="events-page fx-scroll-stage" aria-labelledby="events-title">
       <header class="events-header">
-        <h1 id="events-title"><a href="./index.html">ZHENG Xunan</a></h1>
-        <p>
+        <div class="events-header__top">
+          <h1 id="events-title"><a href="./index.html">ZHENG Xunan</a></h1>
+          <nav class="events-header__nav" aria-label="Site sections">
+            <a class="events-header__nav-link" href="./personal.html">Personal</a>
+            <a
+              class="events-header__nav-link"
+              href="./event-list.html"
+              aria-current="page"
+              >Project</a
+            >
+          </nav>
+        </div>
+        <p class="events-header__intro">
           Engaged in the research and practice of human-computer interaction,
           exploring the integration of installations, VR, visual art and web design.
         </p>
@@ -322,6 +334,7 @@
         </a>
       </footer>
     </main>
+    <script src="./scripts/page-transition.js"></script>
     <script src="./scripts/scroll-transform.js"></script>
   </body>
 </html>
