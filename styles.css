@@ -829,11 +829,17 @@ body {
 }
 
 .events-page .fx-scroll-transform {
-  --fx-st-scale-enter: 1.05;
-  --fx-st-scale-exit: 0.94;
+  /* Event list card scale — only these two control peak vs edge size */
+  --fx-st-scale-enter: 1.1; /* max scale at viewport vertical center */
+  --fx-st-scale-exit: 0.88; /* min scale at top/bottom edges */
   --fx-st-translate-y: 44px;
   --fx-st-rotate-x: 3deg;
   --fx-st-opacity-min: 0.68;
+  --fx-st-center-falloff: 0.52;
+}
+
+.events-page .event-card.fx-scroll-transform {
+  transform-origin: center center;
 }
 
 .project-page .fx-scroll-transform {
@@ -861,5 +867,44 @@ body {
     opacity: 1 !important;
     transform: none !important;
     will-change: auto;
+  }
+}
+
+/* Home local tuning add-on: spacing + hero hover */
+.home .home__hero {
+  margin-top: 56px;
+  overflow: visible;
+}
+
+.home .home__cta {
+  margin-top: 48px;
+}
+
+.home .home__hero img {
+  transform-origin: center center;
+  transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home .home__hero:hover img {
+  transform: scale(1.045);
+}
+
+@media (min-width: 768px) {
+  .home .home__hero {
+    margin-top: 0;
+    top: calc(50% + 76px);
+  }
+
+  .home .home__cta {
+    bottom: clamp(96px, 22vh, 240px);
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home .home__hero img,
+  .home .home__hero:hover img {
+    transform: none;
+    transition: none;
   }
 }
