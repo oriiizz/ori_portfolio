@@ -243,20 +243,6 @@ body {
   margin: 16px 0 0;
 }
 
-.event-card__link {
-  background: #000;
-  border-radius: 12px;
-  color: #fff;
-  display: inline-flex;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  line-height: 1.45;
-  margin-top: 32px;
-  padding: 12px 16px;
-  text-decoration: none;
-}
-
 .events-footer {
   align-items: center;
   display: flex;
@@ -381,6 +367,32 @@ body {
   width: min(calc(100% - 80px), 560px);
 }
 
+.project-page--silent-seconds {
+  background: #000;
+  color: #fff;
+}
+
+.project-page--silent-seconds .project-back,
+.project-page--silent-seconds .project-hero__meta,
+.project-page--silent-seconds .project-rich-text {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.project-page--silent-seconds .project-section h2,
+.project-page--silent-seconds .project-hero h1 {
+  color: #fff;
+}
+
+.project-page--silent-seconds .project-subsection h3 {
+  color: #fff;
+}
+
+.project-page--silent-seconds .project-hero-image,
+.project-page--silent-seconds .project-hero-video,
+.project-page--silent-seconds .event-card__media {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .project-section {
   padding-top: 48px;
 }
@@ -406,12 +418,13 @@ body {
   gap: 16px;
 }
 
-.project-heading-list h3 {
+.project-heading-list h3,
+.project-subsection > h3 {
   font-size: 1.125rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.4;
-  margin: 0;
+  margin: 0 0 16px;
 }
 
 .research-topic {
@@ -742,11 +755,6 @@ body {
     font-size: 2.5rem;
   }
 
-  .event-card__link {
-    font-size: 1.125rem;
-    margin-top: 48px;
-  }
-
   .events-footer {
     margin-top: 120px;
   }
@@ -816,7 +824,8 @@ body {
     width: min(1040px, calc(100vw - 80px));
   }
 
-  .project-heading-list h3 {
+  .project-heading-list h3,
+  .project-subsection > h3 {
     font-size: 1.5rem;
   }
 

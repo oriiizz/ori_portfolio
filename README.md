@@ -2,6 +2,10 @@
 
 Static portfolio website built with HTML, CSS, and local project assets.
 
+## Live site
+
+[Open portfolio](https://oriiizz.github.io/ori_portfolio.github.io/)
+
 ## Local preview
 
 ```bash
