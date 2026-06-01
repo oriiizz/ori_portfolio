@@ -4,6 +4,22 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/home/inter-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/home/inter-bold.woff2") format("woff2");
+}
+
 html,
 body {
   margin: 0;

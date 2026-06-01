@@ -18,7 +18,7 @@
     const imageNumber = padIndex(index);
 
     for (const extension of extensions) {
-      const src = `assets/projects/${project}/detail_${imageNumber}.${extension}`;
+      const src = `./assets/projects/${project}/detail_${imageNumber}.${extension}`;
       const image = await loadImage(src, `${altBase} ${index}`);
 
       if (image) {
