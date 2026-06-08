@@ -1,5 +1,6 @@
 {
   "scripts": {
-    "build": "rm -rf dist && mkdir -p dist && cp -R *.html styles.css assets scripts dist/ && cp .nojekyll dist/"
+    "build": "rm -rf dist && mkdir -p dist && cp -R *.html styles.css assets scripts dist/ && cp .nojekyll dist/",
+    "preview": "python3 scripts/dev-server.py"
   }
 }

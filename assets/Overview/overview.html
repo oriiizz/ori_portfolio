@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function () {
+        var base = document.createElement("base");
+        var marker = "/assets/Overview/";
+
+        if (location.hostname === "oriiizz.github.io") {
+          base.href = "/ori_portfolio.github.io/";
+        } else if (location.protocol === "file:") {
+          var href = location.href.split("#")[0].split("?")[0];
+          var index = href.indexOf(marker);
+          base.href =
+            index >= 0 ? href.slice(0, index) + "/" : href.slice(0, href.lastIndexOf("/") + 1);
+        } else {
+          var path = location.pathname;
+          var idx = path.indexOf(marker);
+          var rootPath = idx >= 0 ? path.slice(0, idx) + "/" : "/";
+          base.href = location.origin + rootPath;
+        }
+
+        document.head.insertBefore(base, document.head.firstChild);
+      })();
+    </script>
+    <title>Overview | Portfolio</title>
+    <link rel="stylesheet" href="./styles.css?v=20260608" />
+    <script src="./scripts/page-transition-boot.js?v=20260608"></script>
+  </head>
+  <body>
+    <main class="project-page personal-page overview-page fx-scroll-stage" aria-labelledby="overview-title">
+      <header class="events-header">
+        <div class="events-header__top">
+          <h1 id="overview-title"><a href="./assets/Overview/overview.html">ZHENG Xunan</a></h1>
+          <nav class="events-header__nav" aria-label="Site sections">
+            <a class="events-header__nav-link" href="./assets/Overview/overview.html" aria-current="page"
+              >Overview</a
+            >
+            <a class="events-header__nav-link" href="./event-list.html">Projects</a>
+            <a class="events-header__nav-link" href="./research.html">Research</a>
+            <a class="events-header__nav-link" href="./personal.html">Personal</a>
+          </nav>
+        </div>
+      </header>
+
+      <article class="project-detail personal-detail">
+        <div class="overview-intro project-rich-text">
+          <p>
+            Welcome to my portfolio website. Here you can explore my personal profile, creative
+            projects and academic research in the field of human-computer interaction and
+            interactive design.
+          </p>
+        </div>
+
+        <section
+          class="overview-carousel overview-carousel--photos"
+          data-overview-carousel
+          aria-label="Gallery"
+          tabindex="0"
+        >
+          <div class="overview-carousel__viewport" data-overview-carousel-click>
+            <div class="overview-carousel__track">
+              <figure class="overview-carousel__slide overview-carousel__slide--photo is-active">
+                <div class="overview-carousel__media project-hero-image">
+                  <img src="./assets/Overview/detail_01.JPG" alt="ZHENG Xunan portrait 1" />
+                </div>
+              </figure>
+              <figure
+                class="overview-carousel__slide overview-carousel__slide--photo"
+                aria-hidden="true"
+              >
+                <div class="overview-carousel__media project-hero-image">
+                  <img src="./assets/Overview/detail_02.jpg" alt="ZHENG Xunan portrait 2" />
+                </div>
+              </figure>
+              <figure
+                class="overview-carousel__slide overview-carousel__slide--photo"
+                aria-hidden="true"
+              >
+                <div class="overview-carousel__media project-hero-image">
+                  <img src="./assets/Overview/detail_03.jpg" alt="ZHENG Xunan portrait 3" />
+                </div>
+              </figure>
+              <figure
+                class="overview-carousel__slide overview-carousel__slide--photo"
+                aria-hidden="true"
+              >
+                <div class="overview-carousel__media project-hero-image">
+                  <img src="./assets/Overview/detail_04.jpg" alt="ZHENG Xunan portrait 4" />
+                </div>
+              </figure>
+            </div>
+          </div>
+
+          <div class="overview-carousel__dots" role="tablist" aria-label="Choose photo">
+            <button
+              type="button"
+              class="overview-carousel__dot is-active"
+              role="tab"
+              aria-label="Show photo 1"
+              aria-selected="true"
+            ></button>
+            <button
+              type="button"
+              class="overview-carousel__dot"
+              role="tab"
+              aria-label="Show photo 2"
+              aria-selected="false"
+            ></button>
+            <button
+              type="button"
+              class="overview-carousel__dot"
+              role="tab"
+              aria-label="Show photo 3"
+              aria-selected="false"
+            ></button>
+            <button
+              type="button"
+              class="overview-carousel__dot"
+              role="tab"
+              aria-label="Show photo 4"
+              aria-selected="false"
+            ></button>
+          </div>
+        </section>
+
+        <section
+          class="overview-featured events-list"
+          data-overview-featured
+          aria-label="Featured projects"
+        ></section>
+      </article>
+    </main>
+    <script src="./scripts/page-transition.js?v=20260608"></script>
+    <script src="./scripts/overview-featured-projects.js?v=20260608"></script>
+    <script src="./assets/Overview/scripts/overview-carousel.js?v=20260608"></script>
+  </body>
+</html>

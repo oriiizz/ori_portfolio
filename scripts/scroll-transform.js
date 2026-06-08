@@ -30,6 +30,12 @@
   const getStage = (element) => element.closest(".fx-scroll-stage");
 
   const updateEventCardFloor = (element) => {
+    if (element.classList.contains("is-filtered-out")) {
+      element.style.transform = "";
+      element.style.opacity = "";
+      return;
+    }
+
     const rect = element.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
     const stage = getStage(element);
