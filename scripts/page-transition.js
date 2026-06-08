@@ -118,7 +118,7 @@
   const home = document.querySelector(".home");
 
   if (home) {
-    const homeTarget = new URL("./event-list.html", window.location.href).href;
+    const homeTarget = new URL("./assets/Overview/overview.html", window.location.href).href;
 
     home.addEventListener(
       "click",
